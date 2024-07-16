@@ -23,7 +23,7 @@ const OrdersScreen = ({ navigation, route }) => {
       const userId = await AsyncStorage.getItem("userId");
 
       const response = await axios.get(
-        `http://192.168.1.7:3000/api/user/orders/${userId}?status=${statusFilter}`
+        `http://192.168.1.8:3000/api/user/orders/${userId}?status=${statusFilter}`
       );
       setOrders(response.data);
     } catch (error) {
@@ -74,22 +74,22 @@ const OrdersScreen = ({ navigation, route }) => {
         <Button
           title="All"
           onPress={() => handleStatusFilter("all")}
-          color={statusFilter === "all" ? "#007BFF" : "#CCCCCC"}
+          color={statusFilter === "all" ? "#000000" : "#CCCCCC"}
         />
         <Button
           title="In Progress"
           onPress={() => handleStatusFilter("In progress")}
-          color={statusFilter === "In progress" ? "#007BFF" : "#CCCCCC"}
+          color={statusFilter === "In progress" ? "#000000" : "#CCCCCC"}
         />
         <Button
           title="Completed"
           onPress={() => handleStatusFilter("Completed")}
-          color={statusFilter === "Completed" ? "#007BFF" : "#CCCCCC"}
+          color={statusFilter === "Completed" ? "#000000" : "#CCCCCC"}
         />
       </View>
       {isLoading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="black" />
         </View>
       ) : (
         <FlatList

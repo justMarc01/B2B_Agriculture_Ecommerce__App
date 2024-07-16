@@ -92,7 +92,7 @@ const BillingShippingScreen = () => {
       });
 
       const response = await Promise.race([
-        fetch("http://192.168.1.7:3000/api/placeOrder", {
+        fetch("http://192.168.1.8:3000/api/placeOrder", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

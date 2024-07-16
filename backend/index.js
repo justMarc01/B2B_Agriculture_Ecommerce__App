@@ -2,15 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const config = require("../components/config.js");
 const { authenticateToken } = require("./middleware");
 const util = require("util");
+const nodemailer = require("nodemailer");
+const moment = require('moment');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -138,6 +141,172 @@ app.post("/api/login", async (req, res) => {
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: 'mahsoulnagroup@gmail.com', // your Gmail address
+    pass: 'faryflicmozfqbnq' // your Gmail password
+  },
+  tls: {
+    rejectUnauthorized: false // Ignore SSL certificate validation errors
+  }
+});
+
+// API endpoint for forgot password
+app.post('/api/forgot-password', (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    res.status(400).json({ error: 'Email is required' });
+    return;
+  }
+
+  const checkEmailQuery = 'SELECT email FROM users WHERE email = ?';
+  connection.query(checkEmailQuery, [email], (error, results) => {
+    if (error) {
+      console.error('Error querying the database:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    console.log('Query results:', results); // Debugging statement
+
+    if (results.length === 0) {
+      console.log('Email not found in database'); // Debugging statement
+      res.status(404).json({ error: 'Email not found' });
+    } else {
+      // Email exists, proceed with generating the token and sending the email
+      const token = Math.floor(1000 + Math.random() * 9000);
+      const expiryTimestamp = moment().add(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
+
+      const insertQuery = 'INSERT INTO password_reset_tokens (email, token, expiry_timestamp) VALUES (?, ?, ?)';
+      connection.query(insertQuery, [email, token, expiryTimestamp], (insertError) => {
+        if (insertError) {
+          console.error('Error inserting token into database:', insertError);
+          res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+          const mailOptions = {
+            from: 'mahsoulnagroup@gmail.com',
+            to: email,
+            subject: 'Password Reset Request',
+            text: `Your verification code is: ${token}`
+          };
+
+          transporter.sendMail(mailOptions, (mailError, info) => {
+            if (mailError) {
+              console.error('Error sending email:', mailError);
+              res.status(500).json({ error: 'Internal Server Error' });
+            } else {
+              console.log('Email sent:', info.response);
+              res.status(200).json({ message: 'An email has been sent to your email address with a verification code.' });
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+// API endpoint for code verification
+app.post('/api/verify-code', (req, res) => {
+  const { email, code } = req.body;
+
+  // Query to fetch the token associated with the email added within the last 60 seconds
+  const selectQuery = `
+    SELECT token
+    FROM password_reset_tokens
+    WHERE email = ?
+      AND created_timestamp BETWEEN NOW() - INTERVAL 60 SECOND AND NOW()
+    ORDER BY created_timestamp DESC
+    LIMIT 1
+  `;
+  connection.query(selectQuery, [email], (error, results) => {
+    if (error) {
+      console.error('Error verifying code:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      if (results.length > 0) {
+        const storedCode = results[0].token;
+        // Check if the stored code matches the provided code
+        if (storedCode === code) {
+          // Verification successful
+          res.status(200).json({ success: true });
+        } else {
+          // Incorrect verification code
+          res.status(200).json({ success: false, error: 'Incorrect verification code' });
+        }
+      } else {
+        // Email not found in database or no tokens added within the last 60 seconds
+        res.status(200).json({ success: false, error: 'Email not found or no tokens added within the last 60 seconds' });
+      }
+    }
+  });
+});
+
+// Function to hash the password
+function hashPassword(password) {
+  return bcrypt.hashSync(password, 10);
+}
+
+// API endpoint for Change password route
+app.post('/api/change-password', (req, res) => {
+  const { email, new_password, confirm_password } = req.body;
+
+  console.log('Request body:', req.body); // Log the request body
+
+  try {
+    // Check if email, new_password, and confirm_password are provided
+    if (!email || !new_password || !confirm_password) {
+      throw new Error("Email, new password, and confirm password are required.");
+    }
+
+    // Check if new_password and confirm_password match
+    if (new_password !== confirm_password) {
+      throw new Error("New password and confirm password do not match.");
+    }
+
+    // Hash the new password
+    const hashed_password = hashPassword(new_password);
+
+    // Check if the provided email exists in the database
+    const checkEmailQuery = "SELECT * FROM users WHERE email = ?";
+    connection.query(checkEmailQuery, [email], (err, results) => {
+      if (err) {
+        console.error('Error checking email:', err);
+        return res.status(500).json({ error: 'An error occurred while checking the email. Please try again later.' });
+      }
+
+      if (results.length === 0) {
+        console.error('No user found with the provided email:', email);
+        return res.status(404).json({ error: 'User not found.' });
+      }
+
+      // Update password in the database
+      const updatePasswordQuery = "UPDATE users SET password = ? WHERE email = ?";
+      connection.query(updatePasswordQuery, [hashed_password, email], (err, result) => {
+        if (err) {
+          console.error('Error updating password:', err);
+          return res.status(500).json({ error: 'An error occurred while updating the password. Please try again later.' });
+        }
+
+        if (result.affectedRows === 0) {
+          console.error('Password change failed');
+          return res.status(500).json({ error: 'Password change failed.' });
+        }
+
+        console.log('Password updated successfully');
+        res.status(200).json({ success: true });
+      });
+    });
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(400).json({ error: error.message });
   }
 });
 
@@ -365,7 +534,6 @@ app.get("/api/user/:userId", (req, res) => {
     res.status(200).json(user);
   });
 });
-
 
 // API endpoint to disable user account
 app.post("/disableAccount", (req, res) => {

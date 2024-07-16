@@ -8,6 +8,7 @@ import {
   Alert,
   ScrollView,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -61,7 +62,7 @@ const RegistrationScreen = ({ navigation }) => {
 
     try {
       setIsRegistring(true);
-      const response = await fetch(`http://192.168.1.7:3000/api/register`, {
+      const response = await fetch(`http://192.168.1.8:3000/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,11 +89,16 @@ const RegistrationScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require("../assets/candies.jpg")}
+      source={require("../assets/white-background.jpg")}
       style={{ flex: 1 }}
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
+          <Image
+            source={require("../assets/signin.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
           <Formik
             initialValues={{
               firstName: "",
@@ -372,7 +378,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     padding: 20,
     borderRadius: 10,
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#ffffff",
   },
   input: {
     borderColor: "#ccc",
@@ -382,11 +388,20 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     marginTop: 10,
-    backgroundColor: "#2980B9",
+    backgroundColor: "#53B175",
     paddingHorizontal: "30%",
     paddingVertical: "5%",
     alignItems: "center",
     borderRadius: 10,
+  },
+  logo: {
+    position: 'absolute',
+    top: 1,
+    right: 0,
+    left:8,
+    width: 430,
+    height: 370,
+    resizeMode: 'cover',
   },
 });
 

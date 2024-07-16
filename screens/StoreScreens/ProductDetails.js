@@ -34,7 +34,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 
         //make a request to the server to fetch the wishlist for the user
         const response = await axios.get(
-          `http://192.168.1.7:3000/api/wishlist/${userId}`
+          `http://192.168.1.8:3000/api/wishlist/${userId}`
         );
 
         //assuming the server responds with wishlist items in the response.data
@@ -54,7 +54,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     const fetchMoreFromCategory = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.7:3000/api/products/${item.category_id}`
+          `http://192.168.1.8:3000/api/products/${item.category_id}`
         );
         setMoreFromCategory(response.data);
       } catch (error) {
@@ -81,7 +81,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 
       //make a request to the server to check and update the wishlist
       const response = await axios.post(
-        `http://192.168.1.7:3000/api/wishlist/addRemove`,
+        `http://192.168.1.8:3000/api/wishlist/addRemove`,
         {
           userId,
           itemId: item.product_id,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addToCartButton: {
-    backgroundColor: "#3498DB",
+    backgroundColor: "#53B175",
     paddingVertical: 10,
     alignItems: "center",
     borderRadius: 8,

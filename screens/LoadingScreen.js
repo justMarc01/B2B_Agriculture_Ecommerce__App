@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Image, StyleSheet, Text } from "react-native";
+import { View, ActivityIndicator, Image, StyleSheet, Text, Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const LoadingScreen = ({ onLoginCheckComplete }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -24,21 +27,12 @@ const LoadingScreen = ({ onLoginCheckComplete }) => {
 
   if (isLoggedIn === null) {
     return (
-      <>
-        <View style={styles.container1}>
-          <Image
-            source={require("../assets/loadingscreen.jpg")}
-            style={styles.logo}
-          />
-          <Text style={styles.text}>
-            Stressed spelled backward is desserts. Coincidence? I don't think
-            so!
-          </Text>
-        </View>
-        <View style={styles.container2}>
-          <ActivityIndicator size="larger" color="#FF69B4" />
-        </View>
-      </>
+      <View style={styles.container}>
+        <Image
+          source={require("../assets/loadingscreen.jpg")}
+          style={styles.logo}
+        />
+      </View>
     );
   }
 
@@ -46,31 +40,17 @@ const LoadingScreen = ({ onLoginCheckComplete }) => {
 };
 
 const styles = StyleSheet.create({
-  container1: {
-    flex: 0.75,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#06AE8C",
-  },
-  container2: {
-    flex: 0.25,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "#06AE8C",
+  container: {
+    flex: 1,
+    justifyContent: "cover",
+    alignItems: "cover",
+    backgroundColor: "#ffffff",
+    paddingBottom: 0, 
   },
   logo: {
-    width: 170,
-    height: 170,
-    marginBottom: 20,
-    borderRadius: 100,
-  },
-
-  text: {
-    fontSize: 20,
-    color: "#EDF2F1",
-    textAlign: "center",
-    paddingHorizontal: 15,
-    marginTop: 20,
+    width: screenWidth, 
+    height: screenHeight, 
+    resizeMode: 'cover', 
   },
 });
 

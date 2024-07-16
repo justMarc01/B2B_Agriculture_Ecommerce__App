@@ -27,7 +27,7 @@ const WishlistScreen = () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
       const response = await axios.get(
-        `http://192.168.1.7:3000/api/wishlist/${userId}`
+        `http://192.168.1.8:3000/api/wishlist/${userId}`
       );
       const wishlistItemIds = response.data.wishlistItems;
 
@@ -37,7 +37,7 @@ const WishlistScreen = () => {
       } else {
         //fetch product details based on wishlist item IDs
         const productDetailsResponse = await axios.get(
-          `http://192.168.1.7:3000/api/productWishList`,
+          `http://192.168.1.8:3000/api/productWishList`,
           {
             params: { wishlistItemIds },
           }
@@ -104,7 +104,7 @@ const WishlistScreen = () => {
           style={styles.addToCartButton}
           onPress={() => addToCart(item)}
         >
-          <FontAwesome name="plus-circle" size={33} color="#5DADE2" />
+          <FontAwesome name="plus-circle" size={33} color="#53B175" />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>

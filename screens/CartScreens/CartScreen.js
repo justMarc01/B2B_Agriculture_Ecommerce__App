@@ -69,7 +69,7 @@ const CartScreen = ({ navigation }) => {
       >
         {cartItems.length === 0 ? (
           <View style={styles.emptyCart}>
-            <MCIcon name="cart-variant" size={90} color="#2E4053" />
+            <MCIcon name="cart-variant" size={90} color="#53B175" />
             <Text style={styles.emptyCartText}>Your cart is lonely!</Text>
             <TouchableOpacity
               style={styles.button}
@@ -100,7 +100,7 @@ const CartScreen = ({ navigation }) => {
                   )}
                   <Text style={styles.quantity}>{item.quantity}</Text>
                   <TouchableOpacity onPress={() => increaseQuantity(item)}>
-                    <Icon name="plus-circle" size={25} color="#5DADE2" />
+                    <Icon name="plus-circle" size={25} color="#53B175" />
                   </TouchableOpacity>
                 </View>
               </View>

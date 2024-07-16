@@ -31,7 +31,7 @@ const SearchScreen = () => {
 
   const loadRandomItems = () => {
     axios
-      .get(`http://192.168.1.7:3000/api/randomItems`)
+      .get(`http://192.168.1.8:3000/api/randomItems`)
       .then((response) => {
         setSearchResults(response.data);
       })
@@ -47,7 +47,7 @@ const SearchScreen = () => {
   const handleSearch = () => {
     axios
       .get(
-        `http://192.168.1.7:3000/api/search?query=${encodeURIComponent(
+        `http://192.168.1.8:3000/api/search?query=${encodeURIComponent(
           searchText
         )}`
       )
@@ -64,20 +64,8 @@ const SearchScreen = () => {
   };
 
   const NoResultsMessage = () => {
-    /*  const funnyMessages = [
-      "Oops! Nothing here but unicorns and rainbows 🦄🌈",
-      "Oh no, the search monsters ate all the results! 🍭🍫",
-      "Looks like the results are on vacation! 🏖️🍹",
-      "Sorry, the results took a wrong turn at Albuquerque! 🤷‍♂️🌵",
-      "404 Results Not Found, but don't worry, we're searching the Bermuda Triangle! 🔍🚢",
-      "Houston, we have a problem... no results! 🚀🛸",
-      "It's a ghost town here, no results in sight! 👻👀",
-    ]; */
 
     const noResultMessage = "Search yielded no result!";
-
-    /* const randomIndex = Math.floor(Math.random() * funnyMessages.length);
-    const funnyMessage = funnyMessages[randomIndex]; */
 
     return (
       <View style={styles.noResultContainer}>
@@ -191,6 +179,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     backgroundColor: "#F7F9F9",
+    borderColor: "#E2E2E2",
     borderWidth: 1.5,
     marginBottom: 16,
   },

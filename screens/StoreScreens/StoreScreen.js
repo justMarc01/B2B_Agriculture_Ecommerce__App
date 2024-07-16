@@ -20,7 +20,7 @@ const StoreScreen = ({ navigation }) => {
   useEffect(() => {
     //fetch categories from the database
     axios
-      .get("http://192.168.1.7:3000/api/categories")
+      .get("http://192.168.1.8:3000/api/categories")
       .then((response) => {
         setCategories(response.data);
       })
@@ -34,7 +34,7 @@ const StoreScreen = ({ navigation }) => {
 
     //fetch recently added items
     axios
-      .get("http://192.168.1.7:3000/api/recentlyAddedItems")
+      .get("http://192.168.1.8:3000/api/recentlyAddedItems")
       .then((response) => {
         setRecentlyAdded(response.data);
       })

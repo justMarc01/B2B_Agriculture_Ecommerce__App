@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "StoreApp",
-    "slug": "StoreApp",
+    "name": "Mahsoulna",
+    "slug": "mahsoulna",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#53B175"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,14 +20,21 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#53B175"
+      },
+      "package": "com.mahsoulna.storeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2670680b-8734-4c8d-9368-59302b043803"
+      }
+    },
+    "owner": "joey00"
   }
 }

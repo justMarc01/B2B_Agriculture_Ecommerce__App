@@ -12,7 +12,7 @@ const OrderDetails = ({ route }) => {
   const fetchOrders = async () => {
     try {
       const response = await fetch(
-        `http://192.168.1.7:3000/api/order/items/${orderId}`
+        `http://192.168.1.8:3000/api/order/items/${orderId}`
       );
 
       if (!response.ok) {

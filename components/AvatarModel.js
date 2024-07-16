@@ -16,7 +16,7 @@ const AvatarModal = ({ isVisible, onSelectAvatar, closeModal }) => {
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        const response = await fetch("http://192.168.1.7:3000/api/avatars");
+        const response = await fetch("http://192.168.1.8:3000/api/avatars");
         const data = await response.json();
         setAvatarData(data);
       } catch (error) {

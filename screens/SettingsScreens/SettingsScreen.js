@@ -26,9 +26,9 @@ const SettingsScreen = ({ navigation }) => {
   const [logingout, setLogingout] = useState(false);
 
   const openWhatsApp = () => {
-    const phoneNumber = "+961 71 282 865";
+    const phoneNumber = "+961 81 953 573";
     const message =
-      "🍬🍫 Hello Sweety Candy! I have a question about your delicious treats.🍩🍭";
+      "Hello Mahsoulna Team! I have a question about your products.";
     const encodedMessage = encodeURIComponent(message);
 
     //create a WhatsApp deep link
@@ -49,7 +49,7 @@ const SettingsScreen = ({ navigation }) => {
     try {
       const userId = await AsyncStorage.getItem("userId");
       const response = await fetch(
-        `http://192.168.1.7:3000/api/user/${userId}`
+        `http://192.168.1.8:3000/api/user/${userId}`
       );
       const data = await response.json();
 
@@ -136,7 +136,7 @@ const SettingsScreen = ({ navigation }) => {
     try {
       const userId = await AsyncStorage.getItem("userId");
       const response = await fetch(
-        `http://192.168.1.7:3000/api/user/avatar/${userId}`,
+        `http://192.168.1.8:3000/api/user/avatar/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -266,7 +266,7 @@ const SettingsScreen = ({ navigation }) => {
               onPress={handleOpenTikTokPage}
             >
               <FontAwesome5
-                name="tiktok"
+                name="facebook"
                 size={35}
                 style={{ verticalAlign: "middle", alignSelf: "center" }}
               />

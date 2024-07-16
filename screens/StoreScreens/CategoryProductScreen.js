@@ -26,7 +26,7 @@ const CategoryProductScreen = ({ route }) => {
   useEffect(() => {
     //fetch products of the selected category from the database
     axios
-      .get(`http://192.168.1.7:3000/api/products/${categoryId}`)
+      .get(`http://192.168.1.8:3000/api/products/${categoryId}`)
       .then((response) => {
         setCategoryProducts(response.data);
       })
@@ -89,7 +89,7 @@ const CategoryProductScreen = ({ route }) => {
           style={styles.addToCartButton}
           onPress={() => addToCart(item)}
         >
-          <FontAwesome name="plus-circle" size={33} color="#5DADE2" />
+          <FontAwesome name="plus-circle" size={33} color="#53B175" />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>

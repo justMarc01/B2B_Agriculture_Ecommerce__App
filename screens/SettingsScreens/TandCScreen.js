@@ -5,18 +5,17 @@ const TandCScreen = () => {
   return (
     <ScrollView>
       <View>
-        <Text style={styles.description}>Last updated 24/11/2023</Text>
+        <Text style={styles.description}>Last updated 20/05/2024</Text>
         <Text style={styles.description}>
-          Please read these terms and conditions carefully before using Sweety
-          Candy.
+          Please read these terms and conditions carefully before using Mahsoulna.
         </Text>
         <Text style={styles.title}>Conditions of Use :</Text>
         <Text style={styles.description}>
-          By using this website or app, you certify that you have read and
+          By using this app, you certify that you have read and
           reviewed this Agreement and that you agree to comply with its terms.
           If you do not want to be bound by the terms of this Agreement, you are
-          advised to leave the website or app accordingly. [Your Business Name]
-          only grants use and access of this website or app, its products, and
+          advised to leave the app accordingly. [Your Business Name]
+          only grants use and access of this app, its products, and
           its services to those who have accepted its terms.
         </Text>
         <Text style={styles.title}>User Account and Registration:</Text>
@@ -30,9 +29,9 @@ const TandCScreen = () => {
         <Text style={styles.title}>Privacy:</Text>
         <Text style={styles.description}>
           Our privacy policy governs the use of information collected from you
-          or that you provide to us through the website or app. Please review
-          our privacy policy before using the website or app. By using the
-          website or app, you agree that Sweety Candy can use your information
+          or that you provide to us through the app. Please review
+          our privacy policy before using the app. By using the
+          app, you agree that Mahsoulna can use your information
           in accordance with our privacy policy.
         </Text>
         <Text style={styles.title}>OUR SERVICE:</Text>
@@ -48,22 +47,19 @@ const TandCScreen = () => {
         </Text>
         <Text style={styles.title}>No Warranties:</Text>
         <Text style={styles.description}>
-          You agree that use of this website or app and the services is at your
-          own risk. The services of this website or app are provided "as is" and
-          on an “AS AVAILABLE” basis without warranties of any kind, express or
-          implied, including warranty of title, noninfringement or third-party
-          rights, merchantability, satisfactory quality, or fitness for a
-          particular purpose. Sweety Candy disclaims any and all warranties,
-          express or implied, including implied warranties of merchantability,
-          satisfactory quality or fitness for a particular purpose and
-          non-infringement. Sweety Candy makes no representations or warranties
-          that use of the website or app will be complete, accurate, reliable,
-          current, secure, virus free, legal or safe.
+        You agree that the use of this app and its services is at your own risk.
+        The services provided by this app are offered "as is" and on an "as available" basis without any warranties 
+        of any kind, express or implied, including but not limited to, warranties of title,
+        non-infringement of third-party rights, merchantability, satisfactory quality, or fitness
+        for a particular purpose. Mahsoulna disclaims any and all warranties, express or implied, 
+        including implied warranties of merchantability, satisfactory quality, fitness for a particular purpose,
+        and non-infringement. Mahsoulna makes no representations or warranties that the use of the app will be complete, 
+        accurate, reliable, current, secure, virus-free, legal, or safe.
         </Text>
         <Text style={styles.title}>Contact Us:</Text>
         <Text style={styles.description}>
           If you have any questions about these Terms, please feel free to contact us at
-          SweetyCandy@support.com.
+          mahsoulnagroup@gmail.com.
         </Text>
       </View>
     </ScrollView>

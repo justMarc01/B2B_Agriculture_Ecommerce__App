@@ -8,7 +8,6 @@ import CartScreen from "../screens/CartScreens/CartScreen.js";
 import CategoryProductScreen from "../screens/StoreScreens/CategoryProductScreen.js";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProductDetails from "../screens/StoreScreens/ProductDetails.js";
-import { MapButton, MapViewScreen } from "./MapButton.js";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FIcon from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -23,21 +22,19 @@ import PrivacyPolicyScreen from "../screens/SettingsScreens/PrivacyPolicy.js";
 import TandCScreen from "../screens/SettingsScreens/TandCScreen.js";
 import WishlistScreen from "../screens/SettingsScreens/WishListScreen.js";
 import OrderDetails from "../screens/OrderDetails.js";
+import ForgotPasswordScreen  from "../screens/ForgotPasswordScreen.js";
+import CodeScreen from "../screens/CodeScreen.js";
+import ChangePasswordScreen from "../screens/ChangePasswordScreen.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const StoreStack = ({ navigation }) => {
-  const latitude = 34.122181;
-  const longitude = 35.650728;
-
-  const openMapView = ({ latitude, longitude }) => {
-    navigation.navigate("MapViewScreen", { latitude, longitude });
-  };
+  
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
       }}
     >
@@ -47,25 +44,9 @@ const StoreStack = ({ navigation }) => {
         options={{
           title: "Store",
           headerShown: true,
-          headerRight: () => (
-            <MapButton
-              latitude={latitude}
-              longitude={longitude}
-              onPress={openMapView}
-            />
-          ),
         }}
       />
-      <Stack.Screen
-        name="MapViewScreen"
-        component={MapViewScreen}
-        options={{
-          title: "Store Location",
-          headerStyle: { backgroundColor: "#922B21" },
-          headerTintColor: "white",
-        }}
-      />
-
+      
       <Stack.Screen
         name="CategoryProduct"
         component={CategoryProductScreen}
@@ -94,7 +75,7 @@ const CartStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
       }}
     >
@@ -109,7 +90,7 @@ const CartStack = () => {
               <FIcon
                 name="trash-o"
                 size={24}
-                color="#CACFD2"
+                color="#53B175"
                 style={{ marginRight: "5%" }}
               />
             </TouchableOpacity>
@@ -135,7 +116,7 @@ const SearchStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
       }}
     >
@@ -162,7 +143,7 @@ const SettingsStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
       }}
     >
@@ -233,6 +214,9 @@ const LoginStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
+      <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+      <Stack.Screen name="CodeScreen"  component={CodeScreen} />
+      <Stack.Screen name="ChangePasswordScreen"  component={ChangePasswordScreen} />
       <Stack.Screen name="AppStack" component={AppStack} />
     </Stack.Navigator>
   );
@@ -242,7 +226,7 @@ const OrderStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
       }}
     >
@@ -267,13 +251,13 @@ const AppStack = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#7B241C" },
+        headerStyle: { backgroundColor: "#53B175" },
         headerTintColor: "white",
         tabBarStyle: {
           paddingBottom: Platform.OS === "ios" ? 20 : 3,
           height: 50,
           backgroundColor: "#FBFCFC",
-          activeTintColor: "#3498DB",
+          activeTintColor: "black",
           inactiveTintColor: "black",
         },
       }}

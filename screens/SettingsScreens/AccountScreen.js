@@ -63,7 +63,7 @@ const AccountScreen = ({ navigation }) => {
 
       if (userId) {
         const response = await fetch(
-          `http://192.168.1.7:3000/api/user/${userId}`,
+          `http://192.168.1.8:3000/api/user/${userId}`,
           {
             method: "GET",
             headers: {
@@ -103,7 +103,7 @@ const AccountScreen = ({ navigation }) => {
 
       //send a request to the server to change the password
       const response = await axios.put(
-        "http://192.168.1.7:3000/api/changePassword",
+        "http://192.168.1.8:3000/api/changePassword",
         {
           userId,
           oldPassword,
@@ -154,7 +154,7 @@ const AccountScreen = ({ navigation }) => {
       setLoadingDisable(true);
       const userId = await AsyncStorage.getItem("userId");
       const response = await axios.post(
-        "http://192.168.1.7:3000/disableAccount",
+        "http://192.168.1.8:3000/disableAccount",
         {
           userId: userId,
         }
